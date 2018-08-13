@@ -1,6 +1,6 @@
 import React from 'react'
 import {
-  SafeAreaView, StatusBar, StyleSheet, Platform, Dimensions,
+  View, SafeAreaView, StatusBar, StyleSheet, Platform, Dimensions,
 } from 'react-native'
 
 export default class AppWrapper extends React.Component {
@@ -20,10 +20,12 @@ export default class AppWrapper extends React.Component {
   render() {
     const { children } = this.props
     return (
-      <SafeAreaView style={styles.container}>
-        <StatusBar />
-        {children}
-      </SafeAreaView>
+      <View style={styles.container}>
+        <SafeAreaView style={styles.safeArea}>
+          <StatusBar />
+          {children}
+        </SafeAreaView>
+      </View>
     )
   }
 }
@@ -39,5 +41,10 @@ const styles = StyleSheet.create({
         paddingTop: StatusBar.currentHeight,
       },
     }),
+    backgroundColor: 'white',
+  },
+  safeArea: {
+    flex: 1,
+    width: '100%',
   },
 })

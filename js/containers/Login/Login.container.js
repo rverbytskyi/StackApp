@@ -1,12 +1,20 @@
 import { connect } from 'react-redux'
 import Login from './Login.component'
 
+import { loginRequest } from '../../actions/user'
+
 function mapStateToProps(state) {
-  const { ui = {} } = state
-  const { width } = ui
+  const { UI = {} } = state
+  const { width } = UI
   return {
     width,
   }
 }
 
-export default connect(mapStateToProps)(Login)
+function mapDispatchToProps(dispatch) {
+  return {
+    login: creds => dispatch(loginRequest(creds)),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login)

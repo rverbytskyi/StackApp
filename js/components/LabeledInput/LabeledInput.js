@@ -10,16 +10,18 @@ export default class LabeledInput extends React.PureComponent {
     value: PropTypes.string.isRequired,
     onChangeText: PropTypes.func.isRequired,
     onLayout: PropTypes.func,
+    ref: PropTypes.object.isRequired,
   }
 
   static defaultProps = {
     label: '',
     value: '',
+    ref: React.createRef(),
   }
 
   render() {
     const {
-      label, value, onChangeText, onLayout = () => {},
+      label, value, onChangeText, onLayout = () => {}, ref,
     } = this.props
     return (
       <View style={styles.container}>
@@ -33,6 +35,7 @@ export default class LabeledInput extends React.PureComponent {
           underlineColorAndroid='transparent'
           disableFullscreenUI
           onLayout={onLayout}
+          ref={ref}
         />
       </View>
     )
