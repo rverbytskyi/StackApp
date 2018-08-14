@@ -1,4 +1,4 @@
-import * as USER_TYPES from '../actions/user'
+import * as USER_TYPES from '../types/user'
 
 const initialState = {
   username: null,
@@ -6,12 +6,12 @@ const initialState = {
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case (USER_TYPES.LOGIN_SUCCESS):
+    case (USER_TYPES.LOGIN):
       return {
         ...state,
-        username: action.username,
+        username: action.payload.username,
       }
-    case (USER_TYPES.LOGOUT_SUCCESS):
+    case (USER_TYPES.LOGOUT):
       return {
         ...initialState,
       }

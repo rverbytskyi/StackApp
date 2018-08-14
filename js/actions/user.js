@@ -1,14 +1,14 @@
-import * as TYPES from '../types/user'
+import { LOGIN, LOGOUT } from '../types/user'
 
-export function loginRequest(payload) {
+export function loggedIn(payload) {
   return {
-    type: TYPES.LOGIN_REQUEST,
+    type: LOGIN,
     payload,
   }
 }
 
-export function logoutRequest() {
+export function logout() {
   return {
-    type: TYPES.LOGOUT_REQUEST,
+    type: LOGOUT,
   }
 }

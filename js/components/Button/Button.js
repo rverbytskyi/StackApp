@@ -10,18 +10,30 @@ export default class Button extends React.PureComponent {
     onPress: PropTypes.func.isRequired,
     width: PropTypes.number.isRequired,
     red: PropTypes.bool.isRequired,
+    disabled: PropTypes.bool.isRequired,
+  }
+
+  static defaultProps = {
+    disabled: false,
   }
 
   render() {
-    const { label, onPress, red } = this.props
+    const {
+      label, onPress, red, disabled,
+    } = this.props
     return (
       <View>
         <TouchableOpacity
           style={[
             style.button,
-            red ? style.red : style.green,
+            disabled
+              ? style.disabled
+              : red
+                ? style.red
+                : style.green,
           ]}
-          onPress={onPress}
+          onPress={disabled ? () => {} : onPress}
+          activeOpacity={disabled ? 1 : 0.7}
         >
           <Text>
             {label}
@@ -42,6 +54,9 @@ const style = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 5,
     height: 25,
+  },
+  disabled: {
+    backgroundColor: '#818085',
   },
   red: {
     backgroundColor: '#7b1a1f',

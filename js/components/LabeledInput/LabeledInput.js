@@ -10,18 +10,28 @@ export default class LabeledInput extends React.PureComponent {
     value: PropTypes.string.isRequired,
     onChangeText: PropTypes.func.isRequired,
     onLayout: PropTypes.func,
+    onSubmitEditing: PropTypes.func.isRequired,
+    secureTextEntry: PropTypes.bool.isRequired,
     ref: PropTypes.object.isRequired,
   }
 
   static defaultProps = {
     label: '',
     value: '',
+    secureTextEntry: false,
+    onSubmitEditing: () => {},
     ref: React.createRef(),
   }
 
   render() {
     const {
-      label, value, onChangeText, onLayout = () => {}, ref,
+      label,
+      value,
+      onChangeText,
+      onLayout = () => {},
+      onSubmitEditing,
+      ref,
+      secureTextEntry,
     } = this.props
     return (
       <View style={styles.container}>
@@ -34,7 +44,9 @@ export default class LabeledInput extends React.PureComponent {
           onChangeText={onChangeText}
           underlineColorAndroid='transparent'
           disableFullscreenUI
+          onSubmitEditing={onSubmitEditing}
           onLayout={onLayout}
+          secureTextEntry={secureTextEntry}
           ref={ref}
         />
       </View>

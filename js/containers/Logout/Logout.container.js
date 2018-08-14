@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import Logout from './Logout.component'
 
-import { logoutRequest } from '../../actions/user'
+import { logout } from '../../actions/user'
 
 function mapStateToProps(state) {
   const { UI = {} } = state
@@ -13,7 +13,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    login: () => dispatch(logoutRequest()),
+    logout: () => dispatch(logout()),
   }
 }
 
