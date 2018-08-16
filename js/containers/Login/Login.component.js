@@ -13,7 +13,7 @@ import { checkUserCreds } from '../../utils/async.storage'
 export default class Login extends React.Component {
   static propTypes = {
     width: PropTypes.number.isRequired,
-    login: PropTypes.func.isRequired,
+    loggedIn: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
@@ -95,6 +95,7 @@ export default class Login extends React.Component {
   }
 
   jumpBetweenInputs = (currIndex) => {
+    console.log(this.inputs)
     if (currIndex < this.inputs.length - 1) {
       this.inputs[currIndex + 1].ref.current.focus()
     } else {
