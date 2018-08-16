@@ -42,7 +42,7 @@ export default class StackList extends React.PureComponent {
 
   _renderItem = ({ item, index }) => (
     <ListItem
-      title={`${index}. ${item.title}`}
+      title={`${index + 1}. ${item.title}`}
       onPress={() => this.onPressItem(item.link)}
     />
   )

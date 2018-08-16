@@ -13,6 +13,7 @@ export default class LabeledInput extends React.PureComponent {
     onSubmitEditing: PropTypes.func.isRequired,
     secureTextEntry: PropTypes.bool.isRequired,
     reference: PropTypes.object,
+    blurOnSubmit: PropTypes.bool.isRequired,
     width: PropTypes.number.isRequired,
     autoCapitalize: PropTypes.oneOf(['none', 'sentences', 'words', 'characters']),
     returnKeyType: PropTypes.oneOf(['done', 'go', 'next', 'search', 'send', 'none', 'previous', 'default', 'emergency-call', 'google', 'join', 'route', 'yahoo']),
@@ -24,6 +25,7 @@ export default class LabeledInput extends React.PureComponent {
     label: '',
     value: '',
     secureTextEntry: false,
+    blurOnSubmit: true,
     onSubmitEditing: () => {},
   }
 
@@ -39,6 +41,7 @@ export default class LabeledInput extends React.PureComponent {
       width,
       autoCapitalize,
       returnKeyType,
+      blurOnSubmit,
     } = this.props
     const varStyle = StyleSheet.create({ textInput: { width: width - 60 } })
     return (
@@ -58,6 +61,7 @@ export default class LabeledInput extends React.PureComponent {
           autoCapitalize={autoCapitalize}
           ref={reference}
           returnKeyType={returnKeyType}
+          blurOnSubmit={blurOnSubmit}
         />
       </View>
     )

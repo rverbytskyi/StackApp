@@ -6,7 +6,6 @@ export function checkUserCreds(creds) {
       .then((storedUsers) => {
         const users = storedUsers ? JSON.parse(storedUsers) : {}
         const { username, password } = creds
-        console.log(users[username], !!users[username])
         const success = !!users[username] && users[username].password === password
         res({ success })
       })

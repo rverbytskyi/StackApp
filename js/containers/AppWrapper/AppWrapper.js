@@ -21,7 +21,7 @@ export default class AppWrapper extends React.Component {
     const { children } = this.props
     return (
       <View style={styles.container}>
-        <StatusBar barStyle='light-content' />
+        <StatusBar barStyle='light-content' translucent backgroundColor='transparent' />
         {children}
       </View>
     )

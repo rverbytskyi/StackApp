@@ -1,6 +1,6 @@
 import React from 'react'
 import {
-  ScrollView, View, StyleSheet, Dimensions, Alert, Animated, Vibration,
+  ScrollView, View, StyleSheet, Dimensions, Alert, Animated, Vibration, KeyboardAvoidingView,
 } from 'react-native'
 import PropTypes from 'prop-types'
 
@@ -109,7 +109,8 @@ export default class Login extends React.Component {
 
   render() {
     const { width } = this.props
-    const { animatedValue, creds: { username, password } } = this.state
+    const { animatedValue, creds } = this.state
+    const { username, password } = creds
     return (
       <ScrollView
         contentContainerStyle={style.container}
@@ -119,33 +120,39 @@ export default class Login extends React.Component {
         <View style={style.item}>
           <Title text='Welcome' />
         </View>
-        <Animated.View
-          style={[
-            {
-              transform: [{
-                translateX: animatedValue.interpolate({
-                  inputRange: [0, 1],
-                  outputRange: [0, 1],
-                }),
-              }],
-            },
-          ]}
+        <KeyboardAvoidingView
+          behavior='position'
+          enabled
         >
-          {this.inputs.map((el, index) => (
-            <LabeledInput
-              key={el.key}
-              label={el.label}
-              value={this.state[el.key]}
-              onChangeText={value => this.onChange(el.key, value)}
-              onSubmitEditing={() => this.jumpBetweenInputs(index)}
-              secureTextEntry={el.secureTextEntry}
-              reference={el.ref}
-              width={width}
-              returnKeyType={el.returnKeyType}
-              autoCapitalize={el.autoCapitalize}
-            />
-          ))}
-        </Animated.View>
+          <Animated.View
+            style={[
+              {
+                transform: [{
+                  translateX: animatedValue.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [0, 1],
+                  }),
+                }],
+              },
+            ]}
+          >
+            {this.inputs.map((el, index) => (
+              <LabeledInput
+                key={el.key}
+                label={el.label}
+                value={creds[el.key]}
+                onChangeText={value => this.onChange(el.key, value)}
+                onSubmitEditing={() => this.jumpBetweenInputs(index)}
+                secureTextEntry={el.secureTextEntry}
+                reference={el.ref}
+                width={width}
+                returnKeyType={el.returnKeyType}
+                autoCapitalize={el.autoCapitalize}
+                blurOnSubmit={false}
+              />
+            ))}
+          </Animated.View>
+        </KeyboardAvoidingView>
         <View style={style.item}>
           <Button
             label='Login'

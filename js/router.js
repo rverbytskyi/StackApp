@@ -97,7 +97,7 @@ const SwitchNavigator = createSwitchNavigator(
   },
   {
     initialRouteName: 'Login',
-    resetOnBlur: false,
+    resetOnBlur: true,
   },
 )
 
