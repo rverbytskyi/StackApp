@@ -19,13 +19,15 @@ export default class Button extends React.PureComponent {
 
   render() {
     const {
-      label, onPress, red, disabled,
+      label, onPress, red, disabled, width,
     } = this.props
+    const varStyle = StyleSheet.create({ button: { width: width - 60 } })
     return (
-      <View>
+      <View style={style.container}>
         <TouchableOpacity
           style={[
             style.button,
+            varStyle.button,
             disabled
               ? style.disabled
               : red
@@ -35,7 +37,7 @@ export default class Button extends React.PureComponent {
           onPress={disabled ? () => {} : onPress}
           activeOpacity={disabled ? 1 : 0.7}
         >
-          <Text>
+          <Text style={style.label}>
             {label}
           </Text>
         </TouchableOpacity>
@@ -46,6 +48,7 @@ export default class Button extends React.PureComponent {
 
 const style = StyleSheet.create({
   container: {
+    width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -53,7 +56,7 @@ const style = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 5,
-    height: 25,
+    height: 40,
   },
   disabled: {
     backgroundColor: '#818085',

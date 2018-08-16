@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'flex-start',
+    backgroundColor: '#273236',
   },
   margin: {
     flex: 0.3,

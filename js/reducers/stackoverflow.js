@@ -1,7 +1,10 @@
 import { GET_STACKOVERFLOW_PAGE_REQUEST, PROCEED_STACKOVERFLOW_DATA } from '../types/stackoverflow'
 
 
-const initialState = {}
+const initialState = {
+  hasMore: true,
+  data: [],
+}
 
 export default function (state = initialState, action) {
   switch (action.type) {
@@ -12,9 +15,15 @@ export default function (state = initialState, action) {
       }
     }
     case PROCEED_STACKOVERFLOW_DATA: {
+      const { items, hasMore } = action.payload
+      const data = items.reduce((acc, val) => {
+        acc.push({ title: val.title, link: val.link, id: val.question_id })
+        return acc
+      }, [])
       return {
         ...state,
-        ...action.payload,
+        data: [...state.data, ...data],
+        hasMore,
       }
     }
     default:

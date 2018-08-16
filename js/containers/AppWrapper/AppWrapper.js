@@ -21,10 +21,8 @@ export default class AppWrapper extends React.Component {
     const { children } = this.props
     return (
       <View style={styles.container}>
-        <SafeAreaView style={styles.safeArea}>
-          <StatusBar />
-          {children}
-        </SafeAreaView>
+        <StatusBar barStyle='light-content' />
+        {children}
       </View>
     )
   }
@@ -41,7 +39,7 @@ const styles = StyleSheet.create({
         paddingTop: StatusBar.currentHeight,
       },
     }),
-    backgroundColor: 'white',
+    backgroundColor: '#273236',
   },
   safeArea: {
     flex: 1,

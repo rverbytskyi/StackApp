@@ -1,5 +1,5 @@
 import React from 'react'
-import { TouchableOpacity } from 'react-native'
+import { TouchableOpacity, StyleSheet } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { createSwitchNavigator, createDrawerNavigator, createStackNavigator } from 'react-navigation'
 
@@ -12,22 +12,20 @@ const Home = createStackNavigator(
   {
     Home: {
       screen: HomeScreen,
-      navigationOptions: {
+      navigationOptions: ({ navigation }) => ({
         title: 'Home',
         headerStyle: {
           backgroundColor: '#273236',
           borderBottomColor: '#111',
         },
         headerTintColor: 'white',
-      },
+        headerLeft: () => (
+          <TouchableOpacity style={style.drawerButton} onPress={() => navigation.toggleDrawer()}>
+            <Icon name='ios-menu' size={20} color='white' />
+          </TouchableOpacity>
+        ),
+      }),
     },
-  },
-  {
-    headerLeft: ({ navigation }) => (
-      <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
-        <Icon name='ios-menu' size={20} color='white' />
-      </TouchableOpacity>
-    ),
   },
 )
 
@@ -35,22 +33,20 @@ const Stackoverflow = createStackNavigator(
   {
     Stackoverflow: {
       screen: StackoverflowScreen,
-      navigationOptions: {
-        title: 'Stackoverflow',
+      navigationOptions: ({ navigation }) => ({
+        title: 'Stack Overflow',
         headerStyle: {
           backgroundColor: '#273236',
           borderBottomColor: '#111',
         },
         headerTintColor: 'white',
-      },
+        headerLeft: () => (
+          <TouchableOpacity style={style.drawerButton} onPress={() => navigation.toggleDrawer()}>
+            <Icon name='ios-menu' size={20} color='white' />
+          </TouchableOpacity>
+        ),
+      }),
     },
-  },
-  {
-    headerLeft: ({ navigation }) => (
-      <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
-        <Icon name='ios-menu' size={20} color='white' />
-      </TouchableOpacity>
-    ),
   },
 )
 
@@ -58,22 +54,20 @@ const Logout = createStackNavigator(
   {
     Logout: {
       screen: LogoutScreen,
-      navigationOptions: {
+      navigationOptions: ({ navigation }) => ({
         title: 'Logout',
         headerStyle: {
           backgroundColor: '#273236',
           borderBottomColor: '#111',
         },
         headerTintColor: 'white',
-      },
+        headerLeft: () => (
+          <TouchableOpacity style={style.drawerButton} onPress={() => navigation.toggleDrawer()}>
+            <Icon name='ios-menu' size={20} color='white' />
+          </TouchableOpacity>
+        ),
+      }),
     },
-  },
-  {
-    headerLeft: ({ navigation }) => (
-      <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
-        <Icon name='ios-menu' size={20} color='white' />
-      </TouchableOpacity>
-    ),
   },
 )
 
@@ -103,3 +97,9 @@ const SwitchNavigator = createSwitchNavigator(
 )
 
 export default SwitchNavigator
+
+const style = StyleSheet.create({
+  drawerButton: {
+    paddingHorizontal: 20,
+  },
+})

@@ -6,6 +6,7 @@ import StackList from './StackList.component'
 function mapStateToProps(state) {
   const { stackoverflow = {} } = state
   const { data, page, hasMore } = stackoverflow
+  console.log(stackoverflow)
   return {
     data,
     page,

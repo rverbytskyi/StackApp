@@ -12,15 +12,19 @@ export default class LabeledInput extends React.PureComponent {
     onLayout: PropTypes.func,
     onSubmitEditing: PropTypes.func.isRequired,
     secureTextEntry: PropTypes.bool.isRequired,
-    ref: PropTypes.object.isRequired,
+    reference: PropTypes.object,
+    width: PropTypes.number.isRequired,
+    autoCapitalize: PropTypes.oneOf(['none', 'sentences', 'words', 'characters']),
+    returnKeyType: PropTypes.oneOf(['done', 'go', 'next', 'search', 'send', 'none', 'previous', 'default', 'emergency-call', 'google', 'join', 'route', 'yahoo']),
   }
 
   static defaultProps = {
+    autoCapitalize: 'sentences',
+    returnKeyType: 'next',
     label: '',
     value: '',
     secureTextEntry: false,
     onSubmitEditing: () => {},
-    ref: React.createRef(),
   }
 
   render() {
@@ -30,16 +34,20 @@ export default class LabeledInput extends React.PureComponent {
       onChangeText,
       onLayout = () => {},
       onSubmitEditing,
-      ref,
+      reference,
       secureTextEntry,
+      width,
+      autoCapitalize,
+      returnKeyType,
     } = this.props
+    const varStyle = StyleSheet.create({ textInput: { width: width - 60 } })
     return (
       <View style={styles.container}>
-        <Text style={styles.label}>
+        <Text style={[styles.label, varStyle.textInput]}>
           {label}
         </Text>
         <TextInput
-          style={styles.textInput}
+          style={[styles.textInput, varStyle.textInput]}
           value={value}
           onChangeText={onChangeText}
           underlineColorAndroid='transparent'
@@ -47,7 +55,9 @@ export default class LabeledInput extends React.PureComponent {
           onSubmitEditing={onSubmitEditing}
           onLayout={onLayout}
           secureTextEntry={secureTextEntry}
-          ref={ref}
+          autoCapitalize={autoCapitalize}
+          ref={reference}
+          returnKeyType={returnKeyType}
         />
       </View>
     )
@@ -56,16 +66,21 @@ export default class LabeledInput extends React.PureComponent {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    marginVertical: 5,
   },
   label: {
     textAlign: 'left',
+    color: 'white',
+    marginVertical: 5,
   },
   textInput: {
-    padding: 5,
+    height: 40,
+    padding: 10,
     borderWidth: 0.5,
     borderColor: 'white',
+    marginVertical: 5,
+    color: 'white',
   },
 })

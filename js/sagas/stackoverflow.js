@@ -35,11 +35,7 @@ export function* stackoverflowDataSaga() {
 
 function* stackoverflowSuccessHandler(payload) {
   const { items, has_more } = payload
-  const data = items.reduce((acc, val) => {
-    acc.push({ title: val.title, link: val.link, id: val.question_id })
-    return acc
-  }, [])
-  yield put({ type: PROCEED_STACKOVERFLOW_DATA, payload: { data, hasMore: has_more } })
+  yield put({ type: PROCEED_STACKOVERFLOW_DATA, payload: { items, hasMore: has_more } })
 }
 
 function* stackoverflowFailHandler(payload) {

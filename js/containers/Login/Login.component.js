@@ -24,12 +24,16 @@ export default class Login extends React.Component {
     {
       key: 'username',
       label: 'Username',
+      autoCapitalize: 'none',
+      returnKeyType: 'next',
       ref: React.createRef(),
     },
     {
       key: 'password',
       label: 'Password',
       secureTextEntry: true,
+      autoCapitalize: 'none',
+      returnKeyType: 'done',
       ref: React.createRef(),
     },
   ]
@@ -94,12 +98,12 @@ export default class Login extends React.Component {
     Animated.sequence(this.wrongPinAnimations).start()
   }
 
-  jumpBetweenInputs = (currIndex) => {
-    console.log(this.inputs)
+  jumpBetweenInputs = async (currIndex) => {
     if (currIndex < this.inputs.length - 1) {
       this.inputs[currIndex + 1].ref.current.focus()
     } else {
       this.inputs[currIndex].ref.current.blur()
+      await this.checkCreds()
     }
   }
 
@@ -117,7 +121,6 @@ export default class Login extends React.Component {
         </View>
         <Animated.View
           style={[
-            style.item,
             {
               transform: [{
                 translateX: animatedValue.interpolate({
@@ -134,9 +137,12 @@ export default class Login extends React.Component {
               label={el.label}
               value={this.state[el.key]}
               onChangeText={value => this.onChange(el.key, value)}
-              onSubmitEditing={this.jumpBetweenInputs(index)}
+              onSubmitEditing={() => this.jumpBetweenInputs(index)}
               secureTextEntry={el.secureTextEntry}
-              ref={el.ref}
+              reference={el.ref}
+              width={width}
+              returnKeyType={el.returnKeyType}
+              autoCapitalize={el.autoCapitalize}
             />
           ))}
         </Animated.View>
@@ -157,6 +163,7 @@ export default class Login extends React.Component {
 const style = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#273236',
   },
   item: {
     flex: 1,

@@ -23,6 +23,9 @@ const styles = StyleSheet.create({
   container: {
     borderBottomWidth: 0.5,
     borderBottomColor: 'gray',
+    height: 50,
+    justifyContent: 'center',
+    paddingHorizontal: 20,
   },
   title: {
     color: 'white',

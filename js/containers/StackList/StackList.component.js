@@ -1,5 +1,5 @@
 import React from 'react'
-import { FlatList, StyleSheet } from 'react-native'
+import { View, FlatList, StyleSheet } from 'react-native'
 import PropTypes from 'prop-types'
 
 import ListItem from '../../components/ListItem'
@@ -16,9 +16,15 @@ export default class StackList extends React.PureComponent {
     data: [],
     page: 1,
     getNewPage: () => {},
+    hasMore: true,
   }
 
-  _keyExtractor = item => item.id
+  componentDidMount() {
+    const { getNewPage, page } = this.props
+    getNewPage({ page })
+  }
+
+  _keyExtractor = (item, index) => `${index}_${item.id}`
 
   _onEndReached = () => {
     const { getNewPage, page, hasMore } = this.props
@@ -27,19 +33,30 @@ export default class StackList extends React.PureComponent {
     }
   }
 
-  _renderItem = ({ item }) => (
-    <ListItem text={item.title} />
+  _renderItem = ({ item, index }) => (
+    <ListItem title={`${index}. ${item.title}`} />
   )
 
   render() {
     const { data } = this.props
+    console.log(data)
     return (
-      <FlatList
-        data={data}
-        keyExtractor={this._keyExtractor}
-        renderItem={this._renderItem}
-        onEndReached={this._onEndReached}
-      />
+      <View style={style.container}>
+        <FlatList
+          data={data}
+          keyExtractor={this._keyExtractor}
+          renderItem={this._renderItem}
+          onEndReached={this._onEndReached}
+          onEndReachedThreshold={0.7}
+        />
+      </View>
     )
   }
 }
+
+const style = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#273236',
+  },
+})
