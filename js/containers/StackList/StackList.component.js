@@ -1,8 +1,11 @@
 import React from 'react'
-import { View, FlatList, StyleSheet } from 'react-native'
+import {
+  View, FlatList, StyleSheet, Linking,
+} from 'react-native'
 import PropTypes from 'prop-types'
 
 import ListItem from '../../components/ListItem'
+import Loading from '../../components/Loading'
 
 export default class StackList extends React.PureComponent {
   static propTypes = {
@@ -33,8 +36,15 @@ export default class StackList extends React.PureComponent {
     }
   }
 
+  onPressItem = (link) => {
+    Linking.openURL(link)
+  }
+
   _renderItem = ({ item, index }) => (
-    <ListItem title={`${index}. ${item.title}`} />
+    <ListItem
+      title={`${index}. ${item.title}`}
+      onPress={() => this.onPressItem(item.link)}
+    />
   )
 
   render() {
@@ -47,7 +57,8 @@ export default class StackList extends React.PureComponent {
           keyExtractor={this._keyExtractor}
           renderItem={this._renderItem}
           onEndReached={this._onEndReached}
-          onEndReachedThreshold={0.7}
+          onEndReachedThreshold={0.5}
+          ListEmptyComponent={Loading}
         />
       </View>
     )

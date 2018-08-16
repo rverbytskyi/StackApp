@@ -22,6 +22,7 @@ export function* apiHandlerSaga() {
   }
 }
 
+// function to handle fail responses it may be useful to handle different status codes
 function* apiHandleFail() {
   while (true) {
     const fail = yield take(API_REQUEST_FAIL)

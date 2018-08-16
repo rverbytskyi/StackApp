@@ -1,20 +1,25 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { TouchableOpacity, Text, StyleSheet } from 'react-native'
 import PropTypes from 'prop-types'
 
 export default class ListItem extends React.PureComponent {
   static propTypes = {
     title: PropTypes.string.isRequired,
+    onPress: PropTypes.func.isRequired,
+  }
+
+  static defaultProps = {
+    onPress: () => {},
   }
 
   render() {
-    const { title } = this.props
+    const { title, onPress } = this.props
     return (
-      <View style={styles.container}>
+      <TouchableOpacity onPress={onPress} style={styles.container}>
         <Text style={styles.title}>
           {title}
         </Text>
-      </View>
+      </TouchableOpacity>
     )
   }
 }

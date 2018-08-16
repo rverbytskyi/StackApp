@@ -9,22 +9,30 @@ export default class Logout extends React.Component {
   static propTypes = {
     width: PropTypes.number.isRequired,
     logout: PropTypes.func.isRequired,
+    navigation: PropTypes.object.isRequired,
   }
 
   static defaultProps = {
     width: Dimensions.get('window').width,
   }
 
+  onPress = () => {
+    const { logout, navigation } = this.props
+    logout()
+    navigation.navigate('Login')
+  }
+
   render() {
-    const { width, login } = this.props
+    const { width } = this.props
     return (
       <View style={style.container}>
-        <View style={style.margin} />
-        <Title text='Good Bye' />
         <View style={style.item}>
+          <Title text='Good Bye' />
+        </View>
+        <View style={style.buttonContainer}>
           <Button
             label='Logout'
-            onPress={() => login()}
+            onPress={this.onPress}
             width={width}
             red
           />
@@ -37,12 +45,14 @@ export default class Logout extends React.Component {
 const style = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  margin: {
-    flex: 0.3,
+    backgroundColor: '#273236',
   },
   item: {
     flex: 1,
+    justifyContent: 'center',
+  },
+  buttonContainer: {
+    flex: 0.6,
     justifyContent: 'center',
   },
 })

@@ -82,7 +82,12 @@ const DrawerNavigation = createDrawerNavigator({
     screen: Logout,
   },
 }, {
-  drawerBackgroundColor: 'white',
+  drawerBackgroundColor: '#273236',
+  contentOptions: {
+    activeTintColor: 'white',
+    activeBackgroundColor: '#36474b',
+    inactiveTintColor: 'white',
+  },
 })
 
 const SwitchNavigator = createSwitchNavigator(
