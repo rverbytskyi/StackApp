@@ -1,4 +1,8 @@
-import { GET_STACKOVERFLOW_PAGE_REQUEST, PROCEED_STACKOVERFLOW_DATA } from '../types/stackoverflow'
+import {
+  GET_STACKOVERFLOW_PAGE_REQUEST,
+  PROCEED_STACKOVERFLOW_DATA,
+  FLUSH_STACKOVERFLOW_DATA,
+} from '../types/stackoverflow'
 
 
 const initialState = {
@@ -24,6 +28,11 @@ export default function (state = initialState, action) {
         ...state,
         data: [...state.data, ...data],
         hasMore,
+      }
+    }
+    case FLUSH_STACKOVERFLOW_DATA: {
+      return {
+        ...initialState,
       }
     }
     default:

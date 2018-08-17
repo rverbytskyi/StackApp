@@ -2,6 +2,7 @@ import { connect } from 'react-redux'
 import { setUI } from '../../actions/ui'
 
 import AppWrapper from './AppWrapper'
+import { disconnected, connected } from '../../actions/network'
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -10,6 +11,12 @@ function mapDispatchToProps(dispatch) {
     },
     setHeight: (value) => {
       dispatch(setUI({ name: 'height', value }))
+    },
+    disconnected: () => {
+      dispatch(disconnected())
+    },
+    connected: () => {
+      dispatch(connected())
     },
   }
 }

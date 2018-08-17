@@ -1,10 +1,13 @@
 import React from 'react'
 import {
-  View, SafeAreaView, StatusBar, StyleSheet, Platform, Dimensions,
+  View, NetInfo, StatusBar, StyleSheet, Platform, Dimensions,
 } from 'react-native'
+
+const NO_CONNECTION_MARKER = 'none'
 
 export default class AppWrapper extends React.Component {
   componentDidMount() {
+    NetInfo.addEventListener('connectionChange', this.netInfoEvent)
     Dimensions.addEventListener('change', this.handleRotation)
     const { setWidth, setHeight } = this.props
     setWidth(Dimensions.get('window').width)
@@ -15,6 +18,15 @@ export default class AppWrapper extends React.Component {
     const { setWidth, setHeight } = this.props
     setWidth(dimensions.window.width)
     setHeight(dimensions.window.height)
+  }
+
+  netInfoEvent = (isConnected) => {
+    const { connected, disconnected } = this.props
+    if (isConnected.type === NO_CONNECTION_MARKER) {
+      disconnected()
+    } else {
+      connected()
+    }
   }
 
   render() {

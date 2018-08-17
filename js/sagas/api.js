@@ -1,16 +1,26 @@
 import {
-  take, put, call, actionChannel, all, fork,
+  take, put, call, actionChannel, all, fork, cancel
 } from 'redux-saga/effects'
 import { buffers } from 'redux-saga'
 import { API_REQUEST, API_REQUEST_FAIL, API_REQUEST_SUCCESS } from '../types/api'
 import apiCall from '../utils/api'
+import { DISCONNECTED, IS_CONNECTED } from '../types/network'
 
-export function* apiHandlerSaga() {
+export function* connectionHandlerSaga() {
   const requestChan = yield actionChannel([API_REQUEST], buffers.expanding(5))
   yield all([
     fork(apiHandleSuccess),
     fork(apiHandleFail),
   ])
+  while (true) {
+    yield take(IS_CONNECTED)
+    const apiHandlerActivity = yield fork(apiHandlerSaga, requestChan)
+    yield take(DISCONNECTED)
+    yield cancel(apiHandlerActivity)
+  }
+}
+
+function* apiHandlerSaga(requestChan) {
   while (true) {
     const action = yield take(requestChan)
     const response = yield call(apiCall, { path: action.payload.path })

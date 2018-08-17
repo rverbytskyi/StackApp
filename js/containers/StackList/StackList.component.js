@@ -13,6 +13,7 @@ export default class StackList extends React.PureComponent {
     page: PropTypes.number.isRequired,
     hasMore: PropTypes.bool.isRequired,
     getNewPage: PropTypes.func,
+    flushData: PropTypes.func,
   }
 
   static defaultProps = {
@@ -25,6 +26,11 @@ export default class StackList extends React.PureComponent {
   componentDidMount() {
     const { getNewPage, page } = this.props
     getNewPage({ page })
+  }
+
+  componentWillUnmount() {
+    const { flushData } = this.props
+    flushData()
   }
 
   _keyExtractor = (item, index) => `${index}_${item.id}`
@@ -49,7 +55,6 @@ export default class StackList extends React.PureComponent {
 
   render() {
     const { data } = this.props
-    console.log(data)
     return (
       <View style={style.container}>
         <FlatList

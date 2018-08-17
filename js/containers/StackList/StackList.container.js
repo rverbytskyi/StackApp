@@ -1,12 +1,11 @@
 import { connect } from 'react-redux'
 
-import { getStackoverflowPage } from '../../actions/stackoverflow'
+import { flushStackoverflowData, getStackoverflowPage } from '../../actions/stackoverflow'
 import StackList from './StackList.component'
 
 function mapStateToProps(state) {
   const { stackoverflow = {} } = state
   const { data, page, hasMore } = stackoverflow
-  console.log(stackoverflow)
   return {
     data,
     page,
@@ -17,6 +16,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     getNewPage: data => dispatch(getStackoverflowPage(data)),
+    flushData: () => dispatch(flushStackoverflowData()),
   }
 }
 
