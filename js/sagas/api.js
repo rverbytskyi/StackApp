@@ -23,7 +23,8 @@ export function* connectionHandlerSaga() {
 function* apiHandlerSaga(requestChan) {
   while (true) {
     const action = yield take(requestChan)
-    const response = yield call(apiCall, { path: action.payload.path })
+    const { payload: { path, method } } = action
+    const response = yield call(apiCall, { path, method })
     if (!/^20\d/.test(response.status.toString())) {
       yield put({ type: API_REQUEST_FAIL, response, action })
     } else {

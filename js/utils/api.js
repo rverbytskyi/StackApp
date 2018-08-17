@@ -1,11 +1,10 @@
 export default async function (options = {}) {
-  const { path } = options
-  console.log(options)
+  const { path, method } = options
   try {
     const response = await fetch(
       path,
       {
-        method: 'GET',
+        method,
         'Content-Type': 'application/json',
       },
     )

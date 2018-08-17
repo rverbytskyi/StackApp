@@ -158,7 +158,7 @@ export default class Login extends React.Component {
             label='Login'
             onPress={() => this.checkCreds()}
             width={width}
-            disabled={!username && !password}
+            disabled={!username || !password}
             red={false}
           />
         </View>

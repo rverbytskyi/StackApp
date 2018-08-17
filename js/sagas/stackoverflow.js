@@ -20,6 +20,7 @@ export function* stackoverflowDataSaga() {
       type: API_REQUEST,
       payload: {
         path,
+        method: 'GET',
         onSuccess: GET_STACKOVERFLOW_PAGE_SUCCESS,
         onFail: GET_STACKOVERFLOW_PAGE_FAIL,
       },
