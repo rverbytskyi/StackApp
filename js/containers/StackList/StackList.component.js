@@ -45,7 +45,6 @@ export default class StackList extends React.PureComponent {
 
   onPressItem = async (link) => {
     const isAvailable = await InAppBrowser.isAvailable()
-    console.log(isAvailable)
     if (isAvailable) {
       InAppBrowser.open(link, {
         // iOS Properties
