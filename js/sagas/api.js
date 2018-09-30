@@ -1,5 +1,5 @@
 import {
-  take, put, call, actionChannel, all, fork, cancel
+  take, put, call, actionChannel, all, fork, cancel,
 } from 'redux-saga/effects'
 import { buffers } from 'redux-saga'
 import { API_REQUEST, API_REQUEST_FAIL, API_REQUEST_SUCCESS } from '../types/api'
@@ -25,10 +25,11 @@ function* apiHandlerSaga(requestChan) {
     const action = yield take(requestChan)
     const { payload: { path, method } } = action
     const response = yield call(apiCall, { path, method })
-    if (!/^20\d/.test(response.status.toString())) {
-      yield put({ type: API_REQUEST_FAIL, response, action })
-    } else {
+    console.log(response)
+    if (response.status && /^20\d/.test(response.status.toString())) {
       yield put({ type: API_REQUEST_SUCCESS, response, action })
+    } else {
+      yield put({ type: API_REQUEST_FAIL, response, action })
     }
   }
 }

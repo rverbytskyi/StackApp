@@ -3,6 +3,7 @@ import {
   View, FlatList, StyleSheet, Linking,
 } from 'react-native'
 import PropTypes from 'prop-types'
+import InAppBrowser from 'react-native-inappbrowser-reborn'
 
 import ListItem from '../../components/ListItem'
 import Loading from '../../components/Loading'
@@ -42,8 +43,29 @@ export default class StackList extends React.PureComponent {
     }
   }
 
-  onPressItem = (link) => {
-    Linking.openURL(link)
+  onPressItem = async (link) => {
+    const isAvailable = await InAppBrowser.isAvailable()
+    console.log(isAvailable)
+    if (isAvailable) {
+      InAppBrowser.open(link, {
+        // iOS Properties
+        dismissButtonStyle: 'cancel',
+        preferredBarTintColor: '#dadada',
+        preferredControlTintColor: '#273236',
+        readerMode: false,
+        // Android Properties
+        showTitle: true,
+        toolbarColor: '#273236',
+        secondaryToolbarColor: '#273236',
+        enableUrlBarHiding: true,
+        enableDefaultShare: true,
+        forceCloseOnRedirection: false,
+      })
+        .then(res => console.log(res))
+        .catch(err => console.log('err', err))
+    } else {
+      Linking.openURL(link)
+    }
   }
 
   _renderItem = ({ item, index }) => (
