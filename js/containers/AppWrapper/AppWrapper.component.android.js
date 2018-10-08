@@ -118,7 +118,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     width: '100%',
-    paddingTop: StatusBar.currentHeight,
     backgroundColor: '#273236',
   },
   safeArea: {
@@ -127,7 +126,7 @@ const styles = StyleSheet.create({
   },
   contentBlock: {
     position: 'absolute',
-    top: 0,
+    top: StatusBar.currentHeight,
     left: 0,
     bottom: 0,
     right: 0,
