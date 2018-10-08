@@ -60,8 +60,8 @@ export default class StackList extends React.PureComponent {
         enableDefaultShare: true,
         forceCloseOnRedirection: false,
       })
-        .then(res => console.log(res))
-        .catch(err => console.log('err', err))
+        .then(() => {})
+        .catch(err => console.warn('[InAppBrowser] returned following error:\n', err))
     } else {
       Linking.openURL(link)
     }

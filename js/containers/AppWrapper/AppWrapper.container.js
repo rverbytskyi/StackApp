@@ -4,6 +4,15 @@ import { setUI } from '../../actions/ui'
 import AppWrapper from './AppWrapper.component'
 import { disconnected, connected } from '../../actions/network'
 
+function mapStateToProps(state) {
+  const { UI = {} } = state
+  const { width, height } = UI
+  return {
+    width,
+    height,
+  }
+}
+
 function mapDispatchToProps(dispatch) {
   return {
     setWidth: (value) => {
@@ -21,4 +30,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(null, mapDispatchToProps)(AppWrapper)
+export default connect(mapStateToProps, mapDispatchToProps)(AppWrapper)
