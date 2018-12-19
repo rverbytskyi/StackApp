@@ -101,8 +101,6 @@ android {
         applicationId "com.stackapp"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        renderscriptTargetApi 23
-        renderscriptSupportModeEnabled true
         versionCode 1
         versionName "1.0"
         ndk {

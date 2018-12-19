@@ -1,59 +1,17 @@
 import React from 'react'
 import {
-  View, NetInfo, StatusBar, StyleSheet, Dimensions, AppState, findNodeHandle,
+  View, NetInfo, StatusBar, StyleSheet, Dimensions,
 } from 'react-native'
-
-import PrivacyWrapper from '../../components/PrivacyWrapper'
 
 const NO_CONNECTION_MARKER = 'none'
 
 export default class AppWrapper extends React.Component {
-  constructor() {
-    super()
-    this.state = {
-      shouldHideContent: false,
-      hideContent: false,
-      viewRef: null,
-      blur: false,
-    }
-    this.contentRef = React.createRef()
-  }
-
   componentDidMount() {
-    AppState.addEventListener('change', this.handleAppStateChange)
     NetInfo.addEventListener('connectionChange', this.netInfoEvent)
     Dimensions.addEventListener('change', this.handleRotation)
     const { setWidth, setHeight } = this.props
     setWidth(Dimensions.get('window').width)
     setHeight(Dimensions.get('window').height)
-  }
-
-  handleAppStateChange = (appState) => {
-    console.log(appState)
-    switch (appState) {
-      case 'inactive': {
-        this.setState({
-          shouldHideContent: true,
-          hideContent: true,
-        })
-        break
-      }
-      case 'active': {
-        this.setState({
-          shouldHideContent: false,
-        })
-        break
-      }
-      case 'background': {
-        this.setState({
-          shouldHideContent: true,
-          hideContent: true,
-        })
-        break
-      }
-      default:
-        console.warn('unhandled appState')
-    }
   }
 
   handleRotation = (dimensions) => {
@@ -72,43 +30,14 @@ export default class AppWrapper extends React.Component {
     }
   }
 
-  removePrivacyPlaceholder = () => {
-    const { shouldHideContent } = this.state
-    if (!shouldHideContent) {
-      this.setState({
-        hideContent: false,
-      })
-    }
-  }
-
-  setViewRef = () => {
-    this.setState({
-      viewRef: findNodeHandle(this.contentRef.current),
-    })
-  }
-
   render() {
     const { children } = this.props
-    const { shouldHideContent, hideContent, viewRef } = this.state
     return (
       <View style={styles.container}>
         <StatusBar barStyle='light-content' translucent backgroundColor='transparent' />
-        <View
-          style={styles.contentBlock}
-          ref={this.contentRef}
-          onLayout={() => this.setViewRef()}
-        >
+        <View style={styles.content}>
           {children}
         </View>
-        {
-          hideContent && (
-            <PrivacyWrapper
-              shouldClose={!shouldHideContent}
-              removePrivacyPlaceholder={this.removePrivacyPlaceholder}
-              viewRef={viewRef}
-            />
-          )
-        }
       </View>
     )
   }
@@ -118,17 +47,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     width: '100%',
+    paddingTop: StatusBar.currentHeight,
     backgroundColor: '#273236',
   },
-  safeArea: {
+  content: {
     flex: 1,
     width: '100%',
-  },
-  contentBlock: {
-    position: 'absolute',
-    top: StatusBar.currentHeight,
-    left: 0,
-    bottom: 0,
-    right: 0,
   },
 })
